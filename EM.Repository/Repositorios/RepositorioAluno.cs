@@ -26,7 +26,16 @@ namespace EM.Repository.Repositorios
             try
             {
                 string dataNascimento = objeto.Nascimento.ToString("d", CultureInfo.CreateSpecificCulture("pt-BR"));
-                string sql = $@"INSERT INTO TBALUNOS(ALNMATRICULA, ALNNOME, ALNCPF, ALNSEXO, ALNNASCIMENTO) VALUES (" + objeto.Matricula + ", '" + objeto.Nome + "', " + objeto.CPF +
+                string cpf = "";
+                if (objeto.CPF == null)
+                {
+                    cpf = "null";
+                }
+                else
+                {
+                    cpf = objeto.CPF;
+                }
+                string sql = $@"INSERT INTO TBALUNOS(ALNMATRICULA, ALNNOME, ALNCPF, ALNSEXO, ALNNASCIMENTO) VALUES (" + objeto.Matricula + ", '" + objeto.Nome + "', " + cpf +
                     ", " + (int)objeto.Sexo + ", '" + dataNascimento + "');";
                 FbCommand cmd = new FbCommand(sql, conexao);
                 cmd.ExecuteNonQuery();
@@ -38,7 +47,11 @@ namespace EM.Repository.Repositorios
                     throw new MatriculaCadastrada("Matrícula já Cadastrada no Sistema!", null);
                 }
                 else
+                {
                     throw new Exception(fbex.Message);
+                }
+
+                throw fbex;
             }
             finally
             {
@@ -114,6 +127,12 @@ namespace EM.Repository.Repositorios
             catch (FbException fbex)
             {
                 throw new Exception(fbex.Message);
+                if (fbex.Message.Contains("Problematic key value is (\"ALNMATRICULA\""))
+                {
+                    throw new MatriculaCadastrada("Matrícula já Cadastrada no Sistema!", null);
+                }
+                else
+                    throw new Exception(fbex.Message);
             }
             finally
             {
