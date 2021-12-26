@@ -38,16 +38,23 @@ namespace EM.Domain.Classes
             }
 
             if (Nascimento.Date >= DateTime.Today)
+            {
                 throw new DataNascimentoInvalida("Data informada deve ser menor que a data atual!", null);
+            }
 
             if (DateTime.Compare(Nascimento, database) <= 0)
+            {
                 throw new DataNascimentoInvalida("NAO E PERMITIDO ALUNOS ACIMA DOS 50 ANOS", null);
+            }
+
             return Nascimento;
         }
         public string ValidarCpf(string cpf)
         {
             if (string.IsNullOrWhiteSpace(cpf))
+            {
                 return null;
+            }
 
             string novePrimeirosDigitos;
             string doisUltimosDigitos;
