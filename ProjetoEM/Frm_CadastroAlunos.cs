@@ -176,7 +176,6 @@ namespace ProjetoEM
             {
                 int linha = dgv_Alunos.SelectedRows.Count;
                 Aluno aluno = (Aluno)bindingListaAlunos.Current;
-                string cpf = aluno.CPF.Replace(".", "").Replace("-", "");
 
                 if (linha <= 0)
                 {
@@ -188,7 +187,7 @@ namespace ProjetoEM
                     tb_Nome.Text = aluno.Nome;
                     cb_Sexo.SelectedItem = aluno.Sexo;
                     mtb_dtNascimento.Text = aluno.Nascimento.ToString();
-                    tb_CPF.Text = cpf;
+                    tb_CPF.Text = aluno.CPF;
                     gb_Aluno.Text = "Editando Aluno";
                     tb_Matricula.Enabled = false;
                     btn_Editar.Text = "Novo";
@@ -227,11 +226,10 @@ namespace ProjetoEM
             if (btn_Editar.Text == "Novo")
             {
                 Aluno aluno = (Aluno)bindingListaAlunos.Current;
-                string cpf = aluno.CPF.Replace(".", "").Replace("-", "");
 
                 tb_Matricula.Text = aluno.Matricula.ToString();
                 tb_Nome.Text = aluno.Nome;
-                tb_CPF.Text = cpf;
+                tb_CPF.Text = aluno.CPF;
                 mtb_dtNascimento.Text = aluno.Nascimento.ToString();
                 cb_Sexo.SelectedItem = aluno.Sexo;
             }

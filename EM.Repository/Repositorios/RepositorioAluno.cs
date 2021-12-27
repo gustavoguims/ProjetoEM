@@ -126,7 +126,6 @@ namespace EM.Repository.Repositorios
             }
             catch (FbException fbex)
             {
-                throw new Exception(fbex.Message);
                 if (fbex.Message.Contains("Problematic key value is (\"ALNMATRICULA\""))
                 {
                     throw new MatriculaCadastrada("Matrícula já Cadastrada no Sistema!", null);
